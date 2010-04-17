@@ -1,0 +1,22 @@
+[
+ {
+  "pk": 1, 
+  "model": "currency.currency", 
+  "fields": {
+   "active": true, 
+   "currency": 73, 
+   "start_date": "2009-05-07 19:31:01", 
+   "exchange_rate": "1"
+  }
+ }, 
+ {
+  "pk": 2, 
+  "model": "currency.currency", 
+  "fields": {
+   "active": true, 
+   "currency": 65, 
+   "start_date": "2009-05-07 19:31:40", 
+   "exchange_rate": "1.39"
+  }
+ }
+]
