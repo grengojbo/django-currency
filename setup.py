@@ -8,9 +8,9 @@ import sys
 DIRNAME = os.path.dirname(__file__)
 
 # Dynamically calculate the version based on django.VERSION.
-version = __import__('currency').__version__
-packages = find_packages('satchmo/apps')
-packages.append('docs')
+version = "0.1.2"
+packages = find_packages('apps')
+#packages.append('docs')
 
 setup(name='django-currency',
     version=version,
@@ -19,15 +19,14 @@ setup(name='django-currency',
     keywords='satchmo',
     author='Oleg Dolya',
     author_email='oleg.dolya@gmail.com',
-    url='http://bitbucket.org/jbo/django-currency/',
+    url='http://github.com/grengojbo/django-currency/',
     license='GPL',
     include_package_data=True,
     package_dir = {
       '' : 'apps',
-      'docs' : 'docs',
-      },
+    },
     #scripts=['scripts/'],
-    setup_requires=["setuptools_hg"],
+    #setup_requires=["setuptools_hg"],
     #data_files = data_files,
     zip_safe = False,
     # install_requires=[

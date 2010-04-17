@@ -1,6 +1,7 @@
 #include docs/*
 include README.rst
-include setup.cfg
+#include setup.cfg
 recursive-include docs *
-include scripts/*
-recursive-include apps/currency *.po *.mo *.html
+#include scripts/*
+#recursive-include apps/currency *.po *.mo *.html *.json
+recursive-include apps/currency *.json
