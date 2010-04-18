@@ -22,17 +22,17 @@ class MoneyFieldProxy(object):
     def __init__(self, field):
         self.field = field
         self.currency_field_name = currency_field_name(self.field.name)
-    
+
     def _money_from_obj(self, obj):
         return Money(obj.__dict__[self.field.name], obj.__dict__[self.currency_field_name])
-    
+
     def __get__(self, obj, type=None):
         if obj is None:
             raise AttributeError('Can only be accessed via an instance.')
         if not isinstance(obj.__dict__[self.field.name], Money):
             obj.__dict__[self.field.name] = self._money_from_obj(obj)
         return obj.__dict__[self.field.name]
-    
+
     def __set__(self, obj, value):
         if isinstance(value, Money):
             obj.__dict__[self.field.name] = value.amount  
@@ -43,7 +43,7 @@ class MoneyFieldProxy(object):
 
 
 class MoneyField(models.DecimalField):
-    
+
     def __init__(self, verbose_name=None, name=None, 
                  max_digits=None, decimal_places=None,
                  default=None, default_currency=None, **kwargs):
@@ -51,41 +51,41 @@ class MoneyField(models.DecimalField):
             self.default_currency = default.currency
         self.default_currency = default_currency
         super(MoneyField, self).__init__(verbose_name, name, max_digits, decimal_places, default=default, **kwargs)
-    
+
     def get_internal_type(self): 
-         return "DecimalField"
-     
+        return "DecimalField"
+
     def contribute_to_class(self, cls, name):
         c_field_name = currency_field_name(name)
         c_field = models.CharField(max_length=3, default=self.default_currency, editable=False)
         c_field.creation_counter = self.creation_counter
         cls.add_to_class(c_field_name, c_field)
-        
+
         super(MoneyField, self).contribute_to_class(cls, name)
-        
+
         setattr(cls, self.name, MoneyFieldProxy(self))
-        
+
         if not hasattr(cls, '_default_manager'):
             from currency.managers import MoneyManager
             cls.add_to_class('objects', MoneyManager())
-        
+
     def get_db_prep_save(self, value):
         if isinstance(value, Money):
             value = value.amount  
         return super(MoneyField, self).get_db_prep_save(value)
-    
+
     def get_db_prep_lookup(self, lookup_type, value):
         if not lookup_type in SUPPORTED_LOOKUPS: 
             raise NotSupportedLookup(lookup_type)
         value = self.get_db_prep_save(value)
         return super(MoneyField, self).get_db_prep_lookup(lookup_type, value)
-    
+
     def get_default(self):
         if isinstance(self.default, Money):
             return self.default
         else:
             return super(MoneyField, self).get_default()
-    
+
     def formfield(self, **kwargs):
         defaults = {'form_class': forms.MoneyField}
         defaults.update(kwargs)

@@ -14,7 +14,8 @@ Installing & Setup
 Smuggler is in the `Python Package Index (PyPI)`_ and you can easily install
 the latest stable version of it using the tools ``pip``. Try::
 
-  pip install django-currency
+  pip install -r http://github.com/grengojbo/django-currency/raw/master/scripts/requirements.txt
+  pip install -e git+http://github.com/grengojbo/django-currency.git#egg=django-currency
 
 
 Alternatively, you can install Smuggler from source code running the follow
