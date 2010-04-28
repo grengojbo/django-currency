@@ -8,7 +8,7 @@ import sys
 DIRNAME = os.path.dirname(__file__)
 
 # Dynamically calculate the version based on django.VERSION.
-version = "0.1.2"
+version = "0.1.3"
 packages = find_packages('apps')
 #packages.append('docs')
 

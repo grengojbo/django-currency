@@ -10,7 +10,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 class CurrencyOptions(admin.ModelAdmin):
-    list_display=('name', 'exchange_rate', 'start_date',)
+    list_display=('name', 'exchange_rate', 'active', 'start_date',)
     ordering = ['currency', '-start_date']
     save_as = True
     save_on_top = True
